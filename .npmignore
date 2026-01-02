@@ -1,0 +1,10 @@
+.gitignore
+.DS_Store
+*.log
+.env
+.github/
+.vscode/
+.idea/
+test-*.js
+test-*.mjs
+coverage/
