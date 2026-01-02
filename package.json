@@ -3,6 +3,11 @@
   "version": "0.0.1",
   "description": "A cli tool to consume all available CPU and RAM",
   "main": "src/lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/architect-fahad/resource-burner/tree/master"
+  },
+  "homepage": "https://github.com/architect-fahad/resource-burner",
   "exports": {
     "require": "./src/lib/index.js",
     "import": "./src/lib/index.mjs"
@@ -30,7 +35,7 @@
     "burn",
     "stress-tester"
   ],
-  "author": "",
+  "author": "architect-fahad",
   "license": "MIT",
   "type": "commonjs",
   "dependencies": {},
