@@ -1,6 +1,6 @@
 {
   "name": "resource-burner",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A cli tool to consume all available CPU and RAM",
   "main": "src/lib/index.js",
   "repository": {
