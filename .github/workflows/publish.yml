@@ -1,8 +1,12 @@
 name: Publish Package
 
 on:
-  release:
-    types: [created]
+  push:
+    branches:
+      - master
+
+permissions:
+  contents: write
 
 jobs:
   publish-npm:
@@ -18,7 +22,30 @@ jobs:
       - run: npm ci
       
       - run: npm test
-      
-      - run: npm publish
+
+      - name: Check version and publish
+        id: check
+        run: |
+          PACKAGE_VERSION=$(node -p "require('./package.json').version")
+          if git rev-parse "v$PACKAGE_VERSION" >/dev/null 2>&1; then
+            echo "Tag v$PACKAGE_VERSION already exists. Skipping..."
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "New version $PACKAGE_VERSION detected."
+            echo "exists=false" >> $GITHUB_OUTPUT
+            echo "version=$PACKAGE_VERSION" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create Release and Publish
+        if: steps.check.outputs.exists == 'false'
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          VERSION=${{ steps.check.outputs.version }}
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git tag -a "v$VERSION" -m "Release v$VERSION"
+          git push origin "v$VERSION"
+          gh release create "v$VERSION" --title "v$VERSION" --generate-notes
+          npm publish

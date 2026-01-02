@@ -47,7 +47,7 @@ burn --memory 2048
 
 ---
 
-## ⚙️ Options
+## Options
 
 | Option | Alias | Description | Default |
 | :--- | :---: | :--- | :--- |
@@ -57,7 +57,7 @@ burn --memory 2048
 
 ---
 
-## 💻 Programmatic Usage
+## Programmatic Usage
 
 You can use `resource-burner` in your own Node.js scripts. It supports both **CommonJS** and **ES Modules**.
 
